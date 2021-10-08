@@ -134,7 +134,7 @@ class ButtonBase(ButtonBehavior):
             self.pressed_function(*self.pressed_args, **self.pressed_kwargs)
 
     def _build_released_function(self, *args) -> None:
-        if self.released_function != None:
+        if self.released_function != None and self.collide_point(*Window.mouse_pos) and self.state == 'down':
             self.released_function(*self.released_args, **self.released_kwargs)
 
 class Ibutton(ButtonBase, Image): pass
