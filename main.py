@@ -43,8 +43,6 @@ class BuilderApp(App):
         # Basics Configs
         self.title = 'LoginSystem'
         self.icon = r'media\images\loginicon.png'
-
-
         return ManagerPages()
 
 if __name__ == '__main__':
