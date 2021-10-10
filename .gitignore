@@ -2,4 +2,8 @@
 virtualenv/
 
 # Pycaches
-components/__pycache__/
+__pycache__/
+controllers/__pycache__/
+models/__pycache__/
+views/__pycache__/
+views/components/__pycache__/
