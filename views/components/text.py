@@ -1,5 +1,6 @@
 from kivy.uix.label import Label
 from kivy.uix.behaviors import ButtonBehavior
+from kivy.uix.textinput import TextInput
 from kivy.core.window import Window
 from kivy.properties import (
     ListProperty,
@@ -23,10 +24,11 @@ class TextLabel(ButtonBehavior, Label):
     border_color: list = ListProperty([1, 1, 1, 1])
     # hover properties
     hover: bool = BooleanProperty(False)
+    hover_color: list = ListProperty([.5, .5, 1, 1]) 
     # press color properties
     press_activation: bool = BooleanProperty(False)
     press_color: list = ListProperty([.3, .3, 1, 1])
-    release_color: list = ListProperty([1, 1, 1, 1])
+    reset_color: list = ListProperty([1, 1, 1, 1])
 
     def __init__(self, radius: list = None, background: bool = None, background_color: list  = None, \
         border: bool = None, border_width: int = None, border_color: list = None, \
@@ -110,17 +112,17 @@ class TextLabel(ButtonBehavior, Label):
         self.text_size = self.size
 
     def _do_press_color(self, *args) -> None:
-        if self.press_activation == True:
+        if self.press_activation == True and self.collide_point(*Window.mouse_pos):
             self.color = [*self.press_color]
 
     def _do_release_color(self, *args) -> None:
-        if self.press_activation == True and self.collide_point(*Window.mouse_pos):
-            self.color = [*self.release_color]
+        if self.press_activation == True and self.collide_point(*Window.mouse_pos) and self.hover == True:
+            self.color = [*self.hover_color]
+        elif self.press_activation == True and self.collide_point(*Window.mouse_pos):
+            self.color = [*self.reset_color]
 
     def _do_hover(self, *args) -> None:
         if self.hover == True and self.collide_point(*Window.mouse_pos) and self.state == 'normal':
-            self.color = [*self.press_color]
+            self.color = [*self.hover_color]
         else:
-            self.color = [*self.release_color]
-
-
+            self.color = [*self.reset_color]

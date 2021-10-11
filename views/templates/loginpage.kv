@@ -1,15 +1,15 @@
-#:kivy 1.0
+
 #:import Frame views.components.frame.Frame 
-#:import TextLabel views.components.textlabel.TextLabel 
+#:import TextLabel views.components.text.TextLabel 
 #:import Tbutton views.components.buttons.Tbutton
 #:import Ibutton views.components.buttons.Ibutton
 
-<LoginPage>:
+<LoginPage@Frame>:
     background: True
     background_color: .5, .5, .5, 1
 
     Frame:
-        id: Background
+        id: bg
         background: True
         radius: [20, 20, 20, 20]
         size_hint: 0.95, 0.95
@@ -29,21 +29,29 @@
 
     TextInput:
         id: username_input
-        font_size: 22
+        font_size: 23
         size_hint: 0.87, 0.069
         pos_hint: {'x': 0.07, 'y': 0.42}
+        multiline: False
+        on_text: self._update_text_options()
+        
 
     TextLabel:
         id: password_text
         text: 'Password:'
-        font_size: 20
+        font_size: 18
+        size_hint: None, None
+        size: 200, 20
         pos_hint: {'x': 0.07, 'y': 0.36}
 
     TextInput:
         id: password_input
-        font_size: 22
+        font_size: 23
+        password: True
         size_hint: 0.87, 0.069
         pos_hint: {'x': 0.07, 'y': 0.28}
+        multiline: False
+        on_text: self._update_text_options()
 
     TextLabel:
         id: forgot_password
@@ -52,8 +60,10 @@
         size_hint: None, 0.069
         width: len(self.text) * 8
         pos_hint: {'x': 0.07, 'y': 0.23}
-        press_activation: True
         hover: True
+        press_color: .5, .5, .9, 1 
+        hover_color: 1, .5, .5, 1
+        press_activation: True
 
     Tbutton:
         id: login_button
@@ -68,6 +78,3 @@
         size_hint: 0.87, 0.069
         pos_hint: {'x': 0.07, 'y': 0.05}
         background_color: .05, .05, .05, 1
-
-
-
