@@ -1,14 +1,17 @@
-from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.label import Label
+from kivy.uix.behaviors import ButtonBehavior
+from kivy.core.window import Window
 from kivy.properties import (
-    ListProperty, BooleanProperty,
+    ListProperty,
+    BooleanProperty,
     NumericProperty,
-    )
+)
 from kivy.graphics import (
     Color, RoundedRectangle,
     Line,
     )
 
-class Frame(FloatLayout): 
+class TextLabel(ButtonBehavior, Label):
     # Basic Properties
     radius: list = ListProperty([0, 0, 0, 0])
     # Background Properties
@@ -18,12 +21,18 @@ class Frame(FloatLayout):
     border: bool = BooleanProperty(False)
     border_width: int = NumericProperty(2)
     border_color: list = ListProperty([1, 1, 1, 1])
+    # hover properties
+    hover: bool = BooleanProperty(False)
+    # press color properties
+    press_activation: bool = BooleanProperty(False)
+    press_color: list = ListProperty([.3, .3, 1, 1])
+    release_color: list = ListProperty([1, 1, 1, 1])
 
     def __init__(self, radius: list = None, background: bool = None, background_color: list  = None, \
         border: bool = None, border_width: int = None, border_color: list = None, \
         **kwargs) -> None:
         # Call master init function
-        super(Frame, self).__init__(**kwargs)
+        super(TextLabel, self).__init__(**kwargs)
 
         # Binding properties
         self.bind( # Draw the background!
@@ -48,9 +57,19 @@ class Frame(FloatLayout):
             height = self._do_border,
             size_hint = self._do_border,
             radius = self._do_border,
-            border = self._do_background,
-            border_color = self._do_background,
-            border_width = self._do_background,
+            border = self._do_border,
+            border_color = self._do_border,
+            border_width = self._do_border,
+        )
+
+        self.bind( # Change text color 
+            on_press = self._do_press_color,
+            on_touch_up = self._do_release_color,
+            on_touch_move = self._do_press_color,
+        )
+
+        Window.bind(
+            mouse_pos = self._do_hover,
         )
 
         self.radius = radius if radius != None else self.radius
@@ -86,3 +105,22 @@ class Frame(FloatLayout):
                         *self.radius), 
                     width = self.border_width
                     )
+
+    def on_size(self, *args) -> None:
+        self.text_size = self.size
+
+    def _do_press_color(self, *args) -> None:
+        if self.press_activation == True:
+            self.color = [*self.press_color]
+
+    def _do_release_color(self, *args) -> None:
+        if self.press_activation == True and self.collide_point(*Window.mouse_pos):
+            self.color = [*self.release_color]
+
+    def _do_hover(self, *args) -> None:
+        if self.hover == True and self.collide_point(*Window.mouse_pos) and self.state == 'normal':
+            self.color = [*self.press_color]
+        else:
+            self.color = [*self.release_color]
+
+

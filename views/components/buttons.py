@@ -46,22 +46,6 @@ class ButtonBase(ButtonBehavior):
         pressed_function: FunctionType = None, pressed_args: list = None, pressed_kwargs: dict = None, released_function: FunctionType = None, \
         released_args: list = None, released_kwargs: dict = None, **kwargs):
 
-        # Pre-setting the values ​​entered in the class call
-        self.id: str = id if id != None else self.id
-        self.radius: list = radius if radius != None else self.radius
-        self.background_activety: bool = background_activety if background_activety != None else self.background_activety
-        self.background_color: list = background_color if background_color != None else self.background_color
-        self.foreground_activety: bool = foreground_activety if foreground_activety != None else self.foreground_activety
-        self.foreground_color: list = foreground_color if foreground_color != None else self.foreground_color
-        self.hover_activety: bool = hover_activety if hover_activety != None else self.hover_activety
-        self.hover_color: list = hover_color if hover_color != None else self.hover_color
-        self.pressed_function: FunctionType = pressed_function if pressed_function != None else self.pressed_function
-        self.pressed_args: list = pressed_args if pressed_args != None else self.pressed_args
-        self.pressed_kwargs: dict = pressed_kwargs if pressed_kwargs != None else self.pressed_kwargs
-        self.released_function: FunctionType = released_function if released_function != None else self.released_function
-        self.released_args: list = released_args if released_args != None else self.released_args
-        self.released_kwargs: dict = released_kwargs if released_kwargs != None else self.released_kwargs
-
         # Running an __init__ function of the parent class
         super(ButtonBase, self).__init__(**kwargs)
         
@@ -93,6 +77,22 @@ class ButtonBase(ButtonBehavior):
 
         # Mouse movement
         Window.bind(mouse_pos = self._do_hover)
+
+        # Pre-setting the values ​​entered in the class call
+        self.id: str = id if id != None else self.id
+        self.radius: list = radius if radius != None else self.radius
+        self.background_activety: bool = background_activety if background_activety != None else self.background_activety
+        self.background_color: list = background_color if background_color != None else self.background_color
+        self.foreground_activety: bool = foreground_activety if foreground_activety != None else self.foreground_activety
+        self.foreground_color: list = foreground_color if foreground_color != None else self.foreground_color
+        self.hover_activety: bool = hover_activety if hover_activety != None else self.hover_activety
+        self.hover_color: list = hover_color if hover_color != None else self.hover_color
+        self.pressed_function: FunctionType = pressed_function if pressed_function != None else self.pressed_function
+        self.pressed_args: list = pressed_args if pressed_args != None else self.pressed_args
+        self.pressed_kwargs: dict = pressed_kwargs if pressed_kwargs != None else self.pressed_kwargs
+        self.released_function: FunctionType = released_function if released_function != None else self.released_function
+        self.released_args: list = released_args if released_args != None else self.released_args
+        self.released_kwargs: dict = released_kwargs if released_kwargs != None else self.released_kwargs
 
     def _do_background(self, *args) -> None: 
         # Reset canvas before
