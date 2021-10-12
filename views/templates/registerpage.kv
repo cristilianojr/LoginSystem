@@ -1,0 +1,106 @@
+#:kivy 2.0
+#:import Frame views.components.frame.Frame 
+#:import TextLabel views.components.text.TextLabel 
+#:import Tbutton views.components.buttons.Tbutton
+#:import Ibutton views.components.buttons.Ibutton
+
+<RegisterPage@Frame>:
+    background: True
+    background_color: .5, .5, .5, 1
+
+    Frame:
+        id: bg
+        background: True
+        radius: [20, 20, 20, 20]
+        size_hint: 0.95, 0.95
+        pos_hint: {'x': 0.025, 'y': 0.025}
+
+    Image:
+        id: logo
+        source: r'views\media\images\xeque_mate_logo.png'
+        size_hint: .3, .3
+        pos_hint: {'x': .5 - logo.size_hint[0]/2, 'y': .8 - logo.size_hint[1]/2}
+
+    TextLabel:
+        id: name_text
+        text: 'Full Name:'
+        font_size: 18
+        size_hint: None, None
+        size: 200, 20
+        pos_hint: {'x': 0.07, 'y': 0.6}
+
+    TextInput:
+        id: name_input
+        font_size: 16
+        size_hint: 0.87, 0.05
+        pos_hint: {'x': 0.07, 'y': 0.55}
+        multiline: False
+        on_text: self._update_text_options()
+
+    TextLabel:
+        id: username_text
+        text: 'Username:'
+        font_size: 18
+        size_hint: None, None
+        size: 200, 20
+        pos_hint: {'x': 0.07, 'y': 0.5}
+
+    TextInput:
+        id: username_input
+        font_size: 16
+        size_hint: 0.87, 0.05
+        pos_hint: {'x': 0.07, 'y': 0.45}
+        multiline: False
+        on_text: self._update_text_options()
+
+    TextLabel:
+        id: password_text
+        text: 'Password:'
+        font_size: 18
+        size_hint: None, None
+        size: 200, 20
+        pos_hint: {'x': 0.07, 'y': 0.4}
+
+    TextInput:
+        id: password_input
+        font_size: 16
+        size_hint: 0.87, 0.05
+        pos_hint: {'x': 0.07, 'y': 0.35}
+        multiline: False
+        on_text: self._update_text_options()
+        password: True
+
+    TextLabel:
+        id: confirm_password_text
+        text: 'Confirm Password:'
+        font_size: 18
+        size_hint: None, None
+        size: 200, 20
+        pos_hint: {'x': 0.07, 'y': 0.3}
+
+    TextInput:
+        id: confirm_password_input
+        font_size: 16
+        size_hint: 0.87, 0.05
+        pos_hint: {'x': 0.07, 'y': 0.25}
+        multiline: False
+        on_text: self._update_text_options()
+        password: True
+
+    BoxLayout:
+        id: buttons_layout
+        orientation: 'horizontal'
+        size_hint: 0.87, 0.15
+        pos_hint: {'x': 0.07, 'y': 0.06}
+        spacing: 10
+
+        Tbutton:
+            id: back_button
+            text: 'Back'
+            background_color: .05, .05, .05, 1
+
+        Tbutton:
+            id: register_button
+            text: 'Register'
+            background_color: .05, .05, .05, 1
+

@@ -115,7 +115,16 @@ class ButtonBase(ButtonBehavior):
 
     def _undo_foreground(self, *args) -> None:
         # Reset foreground 
-        self.canvas.after.clear()
+        if self.hover_activety == True and self.collide_point(*Window.mouse_pos) and self.hover_activety == True:
+            # reset canvas.after
+            self.canvas.after.clear()
+            # Draw Hover Effect
+            with self.canvas.after:
+                Color(*self.hover_color)
+                RoundedRectangle(pos=self.pos, size=self.size, radius=self.radius)
+        else:
+            # reset canvas.after
+            self.canvas.after.clear()
 
     def _do_hover(self, *args) -> None: 
         if self.hover_activety == True and self.collide_point(*Window.mouse_pos) and self.state == 'normal':
@@ -130,12 +139,13 @@ class ButtonBase(ButtonBehavior):
             self.canvas.after.clear()
 
     def _build_pressed_function(self, *args) -> None: 
-        if self.pressed_function != None:
+        if self.pressed_function != None and self.state == 'down':
             self.pressed_function(*self.pressed_args, **self.pressed_kwargs)
 
     def _build_released_function(self, *args) -> None:
         if self.released_function != None and self.collide_point(*Window.mouse_pos) and self.state == 'down':
             self.released_function(*self.released_args, **self.released_kwargs)
+            self.state = 'normal'
 
 class Ibutton(ButtonBase, Image): pass
 class Tbutton(ButtonBase, Label): pass
