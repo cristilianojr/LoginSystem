@@ -13,6 +13,7 @@ class MainApp(App):
             pages={
                 'login': LoginPage(),
                 'register': RegisterPage(),
+                'recover': RecoverPage()
             }
         )
 
@@ -22,6 +23,8 @@ class MainApp(App):
         self.manager.pages['login'].ids['register_button'].released_function = current_page
         self.manager.pages['login'].ids['register_button'].released_args = ['register']
         
+        self.manager.pages['login'].ids['forgot_password'].on_press = lambda: current_page('recover')
+
         self.manager.pages['register'].ids['back_button'].released_function = current_page
         self.manager.pages['register'].ids['back_button'].released_args = ['login']
 
